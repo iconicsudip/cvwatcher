@@ -1,0 +1,260 @@
+{% extends 'nav.html' %}
+{% block body %}
+{%load static%}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@700&family=Fira+Sans:wght@400;500;700&family=Satisfy&family=Sriracha&family=Kaushan+Script&display=swap" />
+    <title>ATS</title>
+</head>
+<style>
+    body {
+        --bg-color: #2d3636;
+        --bg-size: 20px;
+        --bg-position: calc(var(--bg-size) / 2);
+        --main-text-color: snow;
+        --primary-color: rebeccapurple;
+        --rad-color: #353d3d;
+        --rad-percent: 30%;
+        --secondary-color: darkslategrey;
+
+        color: var(--main-text-color);
+        font-family: "Fira Sans", sans-serif;
+        background-color: var(--bg-color);
+        background-image:
+            radial-gradient(var(--rad-color) var(--rad-percent), transparent 0%),
+            radial-gradient(var(--rad-color) var(--rad-percent), transparent 0%);
+        background-position: 0 0, var(--bg-position) var(--bg-position);
+        background-size: var(--bg-size) var(--bg-size);
+        text-align: center;
+    }
+
+    h1 {
+        font-family: "Fira Mono", monospace;
+        font-size: 5em;
+        margin: 0;
+    }
+
+    h1 span {
+        --rotation: 3deg;
+        display: inline-block;
+        margin: 0 -0.3em;
+        padding: 0.15em;
+    }
+
+    h1 span:nth-of-type(odd) {
+        background: var(--primary-color);
+        transform: rotate(calc(var(--rotation) * -1));
+    }
+
+    h1 span:nth-of-type(even) {
+        background: var(--secondary-color);
+        transform: rotate(var(--rotation));
+    }
+
+    h2 {
+        font-family: "Satisfy", cursive;
+        font-size: 4em;
+        margin: 0.1em 0;
+    }
+
+    h3 {
+        font-family: "Sriracha", cursive;
+        font-size: 3em;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    h4 {
+        font-family: "Kaushan Script", cursive;
+        font-size: 2.5em;
+        margin: 0;
+    }
+
+    p {
+        font-size: 2em;
+        margin: 0;
+    }
+
+    .menu {
+        background-color: var(--primary-color);
+        display: grid;
+        margin: 2em auto;
+        padding: 2em 1em;
+        position: relative;
+        row-gap: 2em;
+        width: 100%;
+    }
+
+    .menu::before {
+        background-color: var(--secondary-color);
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 2em;
+        transform: rotate(-3deg);
+        z-index: -1;
+    }
+
+    .item {
+        margin-bottom: 1em;
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+
+    /* WIDE SCREENS / PRINT */
+    @media (min-width: 1024px),print {
+        .menu {
+            width: 60em;
+        }
+
+        .menu::before {
+            transform: rotate(-6deg);
+        }
+
+        .course {
+            column-gap: 2em;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            align-items: center;
+            align-content: center
+        }
+
+        .course h3 {
+            grid-column: 1 / span 2;
+        }
+    }
+
+    /* PRINT */
+    @media print {
+        body {
+            background-color: white;
+            background-image: none;
+            color: black;
+        }
+
+        h1 {
+            font-family: "Fira Sans", sans-serif;
+            font-size: 48px;
+        }
+
+        h1 span {
+            background-color: white !important;
+            margin: 0;
+            padding: 0;
+            transform: none !important;
+        }
+
+        h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 36px;
+        }
+
+        h4 {
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .header-icon,
+        #dark_toggle+label {
+            display: none !important;
+        }
+
+        .menu {
+            background-color: white;
+            margin: 0 auto;
+            padding: 0;
+            row-gap: 24px;
+            width: 100%;
+        }
+
+        .menu::before {
+            display: none;
+        }
+
+        .course {
+            column-gap: 24px;
+        }
+
+        .item {
+            margin-bottom: 16px;
+            margin-left: 24px;
+            margin-right: 24px;
+        }
+    }
+
+    .nav-link {
+        color: white !important;
+    }
+
+    .border {
+        border: none !important;
+    }
+
+    .progress-bar {
+        background-color: rebeccapurple;
+        box-shadow: 0px 0px 2px grey;
+        border-radius: 5px;
+    }
+
+    .progress {
+        box-shadow: 0px 0px 2px grey;
+    }
+</style>
+
+<body>
+
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100">0%</div>
+    </div>
+    <div id="fs" style="width: 100%;height: 80vh;display: flex;justify-content: center;align-items: center;">
+        <div class="box" style="padding: 1rem;
+        background: #663399;
+        border-radius: 10px;
+        box-shadow: 0px 0px 4px 0px black;">
+        <h4>Upload Your Resume(PDF)</h4>
+            <form id="form" action="{%url 'upload' %}" method="POST" enctype="multipart/form-data" style="display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            grid-gap: 2rem;">
+                {% csrf_token %}
+                <input type="file" id="myFile" name="myfile" style="padding: 1rem;" accept="application/pdf">
+                <button onclick="myFunction()" type="submit" style="box-shadow: 0px 0px 4px black;
+                border: none;
+                border-radius: 8px;
+                height: 3rem;
+                background: #2f4f4f;
+                color: white;">Upload</button>
+            </form>
+        </div>
+    </div>
+    <div id="fd">
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="{%static 'js/main.js'%}"></script>
+
+    {% endblock body %}
+    {% block js %}{% endblock js %}

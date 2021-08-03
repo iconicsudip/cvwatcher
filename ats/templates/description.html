@@ -1,0 +1,405 @@
+{% extends 'nav.html' %}
+{% block body %}
+{%load static%}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@700&family=Fira+Sans:wght@400;500;700&family=Satisfy&family=Sriracha&family=Kaushan+Script&display=swap" />
+    <title>ATS</title>
+</head>
+<style>
+    body{
+        background: #fff494;;
+    }
+    body {
+        --bg-color: #2d3636;
+        --bg-size: 20px;
+        --bg-position: calc(var(--bg-size) / 2);
+        --main-text-color: snow;
+        --primary-color: rebeccapurple;
+        --rad-color: #353d3d;
+        --rad-percent: 30%;
+        --secondary-color: darkslategrey;
+
+        color: var(--main-text-color);
+        font-family: "Fira Sans", sans-serif;
+        background-color: var(--bg-color);
+        background-image:
+            radial-gradient(var(--rad-color) var(--rad-percent), transparent 0%),
+            radial-gradient(var(--rad-color) var(--rad-percent), transparent 0%);
+        background-position: 0 0, var(--bg-position) var(--bg-position);
+        background-size: var(--bg-size) var(--bg-size);
+        text-align: center;
+    }
+
+    h1 {
+        font-family: "Fira Mono", monospace;
+        font-size: 5em;
+        margin: 0;
+    }
+
+    h1 span {
+        --rotation: 3deg;
+        display: inline-block;
+        margin: 0 -0.3em;
+        padding: 0.15em;
+    }
+
+    h1 span:nth-of-type(odd) {
+        background: var(--primary-color);
+        transform: rotate(calc(var(--rotation) * -1));
+    }
+
+    h1 span:nth-of-type(even) {
+        background: var(--secondary-color);
+        transform: rotate(var(--rotation));
+    }
+
+    h2 {
+        font-family: "Satisfy", cursive;
+        font-size: 4em;
+        margin: 0.1em 0;
+    }
+
+    h3 {
+        font-family: "Sriracha", cursive;
+        font-size: 3em;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    h4 {
+        font-family: "Kaushan Script", cursive;
+        font-size: 2.5em;
+        margin: 0;
+    }
+
+    p {
+        font-size: 2em;
+        margin: 0;
+    }
+
+    .menu {
+        background-color: var(--primary-color);
+        display: grid;
+        margin: 2em auto;
+        padding: 2em 1em;
+        position: relative;
+        row-gap: 2em;
+        width: 100%;
+    }
+
+    .menu::before {
+        background-color: var(--secondary-color);
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 2em;
+        transform: rotate(-3deg);
+        z-index: -1;
+    }
+
+    .item {
+        margin-bottom: 1em;
+        margin-left: 2em;
+        margin-right: 2em;
+    }
+
+    /* WIDE SCREENS / PRINT */
+    @media (min-width: 1024px),print {
+        .menu {
+            width: 60em;
+        }
+
+        .menu::before {
+            transform: rotate(-6deg);
+        }
+
+        .course {
+            column-gap: 2em;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            align-items: center;
+            align-content: center
+        }
+
+        .course h3 {
+            grid-column: 1 / span 2;
+        }
+    }
+
+    /* PRINT */
+    @media print {
+        body {
+            background-color: white;
+            background-image: none;
+            color: black;
+        }
+
+        h1 {
+            font-family: "Fira Sans", sans-serif;
+            font-size: 48px;
+        }
+
+        h1 span {
+            background-color: white !important;
+            margin: 0;
+            padding: 0;
+            transform: none !important;
+        }
+
+        h2 {
+            font-size: 40px;
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 36px;
+        }
+
+        h4 {
+            font-size: 32px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+
+        .header-icon,
+        #dark_toggle+label {
+            display: none !important;
+        }
+
+        .menu {
+            background-color: white;
+            margin: 0 auto;
+            padding: 0;
+            row-gap: 24px;
+            width: 100%;
+        }
+
+        .menu::before {
+            display: none;
+        }
+
+        .course {
+            column-gap: 24px;
+        }
+
+        .item {
+            margin-bottom: 16px;
+            margin-left: 24px;
+            margin-right: 24px;
+        }
+    }
+
+    .nav-link {
+        color: white !important;
+    }
+    .border{
+        border: none!important;
+    }
+    .progress-bar{
+        background-color: rebeccapurple;
+        box-shadow: 0px 0px 2px grey;
+        border-radius: 5px;
+    }
+    .progress{
+        box-shadow: 0px 0px 2px grey;
+    }
+</style>
+<body>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
+            aria-valuemax="100">50%</div>
+    </div>
+    <div id="fs" class="container-fluid" style="margin-top: 1rem;">
+        <form action="{%url 'description' %}" method="POST">
+            <div class="container row mx-auto menu" style="display: flex;align-content: center;justify-content: center;padding: 1rem;
+            box-shadow: 0px 0px 4px 0px black;">
+                {% csrf_token %}
+                <div class="col-sm-8 border border-dark" style="padding: 0;padding: 1rem;
+                box-shadow: 0px 0px 4px 0px black;">
+                    <div class="border border-dark">
+                        <h4 style="text-align: center;">Write job description</h4>
+                    </div>
+                    <textarea name="jd" style="width: 100%;height:196px;padding: 1rem;
+                    background: transparent;color: white;
+                    box-shadow: 0px 0px 4px 0px black;" id="jobDescription" placeholder="Job Description..."
+                        spellcheck="false" required></textarea>
+                </div>
+                <div class="col-sm-4 border border-dark" style="padding: 0;padding: 1rem;
+                box-shadow: 0px 0px 4px 0px black;">
+                    <div class="border border-dark">
+                        <h4 style="text-align: center;">Use a Sample Job Description</h4>
+                    </div>
+                    <div class="scroll" style="height: 196px;overflow: auto;display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;">
+                        <div class="form-check ">
+                            <input class="radio" value="" onclick="display()" type="radio" name="radio" id="exampleRadios1"
+                                value="custom" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                Custom JD
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="radio" value="We are looking for a highly skilled computer programmer who is comfortable with both front and back end programming. Full Stack Developers are responsible for developing and designing front end web architecture, ensuring the responsiveness of applications and working alongside graphic designers for web design features, among other duties.
+                            Full Stack Developers will be required to see out a project from conception to final product, requiring good organizational skills and attention to detail.
+        
+                            Full Stack Developer Responsibilities:
+                            Developing front end website architecture.
+                            Designing user interactions on web pages.
+                            Developing back end website applications.
+                            Creating servers and databases for functionality.
+                            Ensuring cross-platform optimization for mobile phones.
+                            Ensuring responsiveness of applications.
+                            Working alongside graphic designers for web design features.
+                            Seeing through a project from conception to finished product.
+                            Designing and developing APIs.
+                            Meeting both technical and consumer needs.
+                            Staying abreast of developments in web applications and programming languages.
+                            Full Stack Developer Requirements:
+                            Degree in Computer Science.
+                            Strong organizational and project management skills.
+                            Proficiency with fundamental front end languages such as HTML, CSS and JavaScript.
+                            Familiarity with JavaScript frameworks such as Angular JS, React and Amber.
+                            Proficiency with server side languages such as Python, Ruby, Java, PHP and .Net.
+                            Familiarity with database technology such as MySQL, Oracle and MongoDB.
+                            Excellent verbal communication skills.
+                            Good problem solving skills.
+                            Attention to detail." onclick="display()" type="radio" name="radio" id="exampleRadios2"
+                                value="fullstack">
+                            <label class="form-check-label" for="exampleRadios2">
+                                Full-Stack Developer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="radio" value="We are looking for a talented Developer to join our experienced development team. In this role, you will be responsible for designing, coding, testing, modifying, and implementing new or existing software products. Your duties will include liaising with the Development Managers, writing clean, scalable code, creating testing protocols, fixing bugs, and deploying programs.
+
+                            To ensure success as a Developer, you should have advanced knowledge of programming languages, excellent problem-solving skills, and the ability to work to a deadline. A top-class Developer works together with the development team to create high-level programs that perfectly meet the needs of the company.
+        
+                            Developer Responsibilities:
+                            Meeting with Development Managers to discuss the scope of software projects.
+                            Analyzing existing programs for modification purposes.
+                            Researching and designing new software systems, websites, programs, and applications.
+                            Writing and implementing, clean, scalable code.
+                            Troubleshooting and debugging code.
+                            Verifying and deploying software systems.
+                            Evaluating user feedback.
+                            Recommending and executing program improvements.
+                            Maintaining software code and security systems.
+                            Creating technical documents and training staff.
+                            Developer Requirements:
+                            Bachelor?s degree in Computer Science, Computer Engineering or Information Technology.
+                            Advanced knowledge of programming languages including JavaScript, HTML5, Java, C++, and PHP.
+                            Knowledge of software systems and frameworks including AnglularJS, Git, GitHub, and .NET.
+                            Experience with object-Relational Mapping (ORM) frameworks.
+                            Familiarity with Agile development technologies.
+                            Ability to learn new languages and technologies quickly.
+                            Good communication skills.
+                            Ability to work as part of a team or individually on a project.
+                            Ability to work well under pressure." onclick="display()" type="radio" name="radio" id="exampleRadios3"
+                                value="web">
+                            <label class="form-check-label" for="exampleRadios2">
+                                Developer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="radio" value="We are looking for programmers with a keen eye for design for the position of Front End Developer. Front end Developers are responsible for ensuring the alignment of web design and user experience requirements, optimizing web pages for maximum efficiency and maintaining brand consistency across all web pages, among other duties.
+
+                            Front End Developers are required to work in teams alongside Back end Developers, Graphic Designers and User Experience Designers to ensure all elements of web creation are consistent. This requires excellent communication and interpersonal skills.
+        
+                            Front End Developer Responsibilities:
+                            Determining the structure and design of web pages.
+                            Ensuring user experience determines design choices.
+                            Developing features to enhance the user experience.
+                            Striking a balance between functional and aesthetic design.
+                            Ensuring web design is optimized for smartphones.
+                            Building reusable code for future use.
+                            Optimizing web pages for maximum speed and scalability.
+                            Utilizing a variety of markup languages to write web pages.
+                            Maintaining brand consistency throughout design.
+                            Front End Developer Requirements:
+                            Degree in Computer Science or related field.
+                            Understanding of key design principles.
+                            Proficiency with HTML, CSS, JavaScript and jQuery.
+                            Understanding of server-side CSS.
+                            Experience with graphic design applications such as Adobe Illustrator.
+                            Experience with responsive and adaptive design.
+                            Understanding of SEO principles.
+                            Good problem solving skills.
+                            Excellent verbal communication skills.
+                            Good interpersonal skills." onclick="display()" type="radio" name="radio" id="exampleRadios4"
+                                value="frontend">
+                            <label class="form-check-label" for="exampleRadios3">
+                                Frontend Developer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="radio" value="We are looking for an analytical, results-driven Back-end Developer who will work with team members to troubleshoot and improve current back-end applications and processes. The Back-end Developer will use his or her understanding of programming languages and tools to analyze current codes and industry developments, formulate more efficient processes, solve problems, and create a more seamless experience for users. You should have excellent communication, computer, and project management skills.
+
+                            To succeed as a Backend Developer, you should be focused on building a better, more efficient program and creating a better end-user experience. You should be knowledgeable, collaborative, and motivated.
+        
+                            Back-end Developer Responsibilities:
+                            Compile and analyze data, processes, and codes to troubleshoot problems and identify areas for improvement.
+                            Collaborating with the front-end developers and other team members to establish objectives and design more functional, cohesive codes to enhance the user experience.
+                            Developing ideas for new programs, products, or features by monitoring industry developments and trends.
+                            Recording data and reporting it to proper parties, such as clients or leadership.
+                            Participating in continuing education and training to remain current on best practices, learn new programming languages, and better assist other team members.
+                            Taking lead on projects, as needed.
+                            Back-end Developer Requirements:
+                            Bachelor?s degree in computer programming, computer science, or a related field.
+                            More education or experience may be required.
+                            Fluency or understanding of specific languages, such as Java, PHP, or Python, and operating systems may be required.
+                            Strong understanding of the web development cycle and programming techniques and tools.
+                            Focus on efficiency, user experience, and process improvement.
+                            Excellent project and time management skills.
+                            Strong problem solving and verbal and written communication skills.
+                            Ability to work independently or with a group.
+                            Willingness to sit at desk for extended periods." onclick="display()" type="radio" name="radio" id="exampleRadios5"
+                                value="backend">
+                            <label class="form-check-label" for="exampleRadios3">
+                                Backend Developer
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button id="submit" onclick="myFunction()" type="submit" style="    box-shadow: 0px 0px 4px black;
+                border: none;
+                border-radius: 8px;
+                height: 3rem;
+                background: darkslategrey;
+                color: white;
+                margin-top: 1rem;">Upload</button>
+            </div>
+            {%if context%}
+                <input style="/*display: none;*/width: 100%;" name="resume" type="hidden" value="{{context}}" readonly>
+            {%endif%}
+        </form>
+    </div>
+    <div id="fd">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="{%static 'js/description.js'%}"></script>
+
+    {% endblock body %}
+    {% block js %}{% endblock js %}
