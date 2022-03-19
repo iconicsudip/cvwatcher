@@ -25,7 +25,7 @@ SECRET_KEY = '^ksgdqznb$dblfy8)c(wlk($kjoib$be_f=5twwu$#vh3-8us@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cvwatcher.herokuapp.com','*']
 
 
 # Application definition
